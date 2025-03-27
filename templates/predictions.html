@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przewidywania Meczów</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2D3436;
+            --secondary-color: #0984E3;
+            --accent-color: #00B894;
+            --background-color: #F5F6FA;
+            --card-background: #FFFFFF;
+            --text-color: #2D3436;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .match-card {
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .match-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .match-teams {
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        .match-date {
+            color: #636E72;
+            font-size: 1.1rem;
+        }
+
+        .prediction {
+            background-color: var(--accent-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-weight: 500;
+        }
+
+        .confidence {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            font-weight: 500;
+            margin: 1rem 0;
+        }
+
+        .factors {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .factor-item {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: var(--border-radius);
+        }
+
+        .factor-item h3 {
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .factor-item p {
+            color: #636E72;
+            font-size: 0.9rem;
+        }
+
+        .fetch-button {
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .fetch-button:hover {
+            background-color: #00A187;
+        }
+
+        .no-matches {
+            text-align: center;
+            padding: 3rem;
+            background-color: var(--card-background);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        .no-matches p {
+            color: #636E72;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .match-header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            .factors {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Przewidywania Meczów</h1>
+            <p class="subtitle">Najnowsze analizy i typy na nadchodzące mecze</p>
+            <div class="nav-links">
+                <a href="/" class="nav-link">Strona Główna</a>
+                <a href="/statistics" class="nav-link">Statystyki</a>
+                <a href="/analysis" class="nav-link">Analiza</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <button id="fetchData" class="fetch-button">Pobierz Najnowsze Dane</button>
+
+        {% if predictions %}
+            {% for prediction in predictions %}
+                <div class="match-card">
+                    <div class="match-header">
+                        <div class="match-teams">
+                            {{ prediction.match.home_team }} vs {{ prediction.match.away_team }}
+                        </div>
+                        <div class="match-date">
+                            {{ prediction.match.date.strftime('%d.%m.%Y %H:%M') }}
+                        </div>
+                    </div>
+                    
+                    <div class="prediction">
+                        Typ: {{ prediction.analysis.prediction }}
+                    </div>
+                    
+                    <div class="confidence">
+                        Pewność: {{ prediction.analysis.confidence }}%
+                    </div>
+                    
+                    <div class="factors">
+                        <div class="factor-item">
+                            <h3>Forma</h3>
+                            <p>{{ prediction.analysis.factors.form }}</p>
+                        </div>
+                        <div class="factor-item">
+                            <h3>Gole</h3>
+                            <p>{{ prediction.analysis.factors.goals }}</p>
+                        </div>
+                        <div class="factor-item">
+                            <h3>Strzały</h3>
+                            <p>{{ prediction.analysis.factors.shots }}</p>
+                        </div>
+                        <div class="factor-item">
+                            <h3>Bezpośrednie Pojedynki</h3>
+                            <p>{{ prediction.analysis.factors.h2h }}</p>
+                        </div>
+                        <div class="factor-item">
+                            <h3>Punkty</h3>
+                            <p>{{ prediction.analysis.factors.scores }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-matches">
+                <p>Brak dostępnych przewidywań.</p>
+                <p>Kliknij przycisk "Pobierz Najnowsze Dane" aby zaktualizować dane.</p>
+            </div>
+        {% endif %}
+    </main>
+
+    <script>
+        document.getElementById('fetchData').addEventListener('click', async () => {
+            try {
+                const response = await fetch('/fetch_data', {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                if (data.status === 'success') {
+                    alert('Dane zostały pobrane pomyślnie!');
+                    location.reload();
+                }
+            } catch (error) {
+                alert('Wystąpił błąd podczas pobierania danych.');
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html> 

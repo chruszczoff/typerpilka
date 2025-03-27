@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Przewidywanie Meczów Piłkarskich</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2D3436;
+            --secondary-color: #0984E3;
+            --accent-color: #00B894;
+            --background-color: #F5F6FA;
+            --card-background: #FFFFFF;
+            --text-color: #2D3436;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            margin-bottom: 3rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .feature-card {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card h2 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .feature-card p {
+            color: #636E72;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            background-color: var(--card-background);
+            padding: 3rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            margin-bottom: 3rem;
+        }
+
+        .cta-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .cta-section p {
+            color: #636E72;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 500;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #00A187;
+        }
+
+        .stats-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #636E72;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Przewidywanie Meczów Piłkarskich</h1>
+            <p class="subtitle">Zaawansowana analiza i predykcje dla najważniejszych lig europejskich</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="features">
+            <div class="feature-card">
+                <h2>Dokładne Przewidywania</h2>
+                <p>Wykorzystujemy zaawansowane algorytmy do analizy formy, statystyk i historii spotkań, aby zapewnić jak najdokładniejsze przewidywania.</p>
+            </div>
+            <div class="feature-card">
+                <h2>Wielu Lig</h2>
+                <p>Śledzimy najważniejsze ligi europejskie, w tym Premier League, Bundesligę, Serie A, La Liga i Ligue 1.</p>
+            </div>
+            <div class="feature-card">
+                <h2>Szczegółowa Analiza</h2>
+                <p>Każde przewidywanie zawiera szczegółową analizę czynników wpływających na wynik meczu.</p>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <h2>Rozpocznij Przewidywanie</h2>
+            <p>Sprawdź nasze najnowsze przewidywania i rozpocznij swoją podróż z analizą piłki nożnej.</p>
+            <a href="/predictions" class="button">Zobacz Przewidywania</a>
+        </section>
+
+        <section class="stats-section">
+            <div class="stat-card">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Śledzonych Lig</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">90%</div>
+                <div class="stat-label">Maksymalna Pewność</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5</div>
+                <div class="stat-label">Ostatnich Meczy</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Przewidywanie Meczów Piłkarskich. Wszelkie prawa zastrzeżone.</p>
+        </div>
+    </footer>
+</body>
+</html> 
